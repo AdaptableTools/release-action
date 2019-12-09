@@ -1,6 +1,6 @@
 name: "Release action"
 description: "Releases a new version"
-inputs:
+# inputs:
 outputs:
   time: # output will be available to future steps
     description: "The message to output"
