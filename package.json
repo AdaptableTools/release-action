@@ -1,6 +1,6 @@
 {
   "name": "release-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Release action",
   "main": "index.js",
   "scripts": {
