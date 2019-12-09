@@ -553,7 +553,7 @@ async function run() {
           core.exportVariable("PUBLISH_PACKAGE_CMD", cmd);
           core.info("SET ENV VAR PUBLISH_PACKAGE_CMD = " + cmd);
         }
-        const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
+        const PRIVATE_REGISTRY_TOKEN = process.env.PRIVATE_REGISTRY_TOKEN;
 
         core.info("token", PRIVATE_REGISTRY_TOKEN);
         // core.setSecret(npmToken);
