@@ -531,41 +531,32 @@ async function run() {
     const commit = payload.commits.filter(commit => commit.id === sha);
 
     if (commit && commit.message) {
-      let what;
+      let cmd;
       if (commit.message.toLowerCase().includes("release version canary")) {
-        core.exportSecret(
-          "PUBLISH_PACKAGE_CMD",
-          (what = "npm run canaryrelease")
-        );
+        cmd = "npm run canaryrelease";
       } else if (
         commit.message.toLowerCase().includes("release version patch")
       ) {
-        core.exportSecret(
-          "PUBLISH_PACKAGE_CMD",
-          (what = "npm run release:patch")
-        );
+        cmd = "npm run release:patch";
       } else if (
         commit.message.toLowerCase().includes("release version minor")
       ) {
-        core.exportSecret(
-          "PUBLISH_PACKAGE_CMD",
-          (what = "npm run release:minor")
-        );
+        cmd = "npm run release:minor";
       } else if (
         commit.message.toLowerCase().includes("release version major")
       ) {
-        core.exportSecret(
-          "PUBLISH_PACKAGE_CMD",
-          (what = "npm run release:major")
-        );
+        cmd = "npm run release:major";
       }
 
       if (commit.message.toLowerCase().includes("release version")) {
-        if (!what) {
+        if (!cmd) {
           const err = `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`;
           console.log(err);
           core.setFailed(err);
           return;
+        } else {
+          core.exportVariable("PUBLISH_PACKAGE_CMD", cmd);
+          console.log("SET ENV VAR PUBLISH_PACKAGE_CMD = " + cmd);
         }
         const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
         // core.setSecret(npmToken);
