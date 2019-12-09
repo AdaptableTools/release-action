@@ -40,16 +40,18 @@ async function run() {
         const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
         // core.setSecret(npmToken);
         // core.setSecret(npmToken);
+        const contents = `@adaptabletools:registry=https://registry.adaptabletools.com
+//registry.adaptabletools.com/:_authToken=${PRIVATE_REGISTRY_TOKEN}`;
         fs.writeFile(
           ".npmrc",
 
-          `@adaptabletools:registry=https://registry.adaptabletools.com
-//registry.adaptabletools.com/:_authToken=${PRIVATE_REGISTRY_TOKEN}`,
+          contents,
           error => {
             if (error) {
               core.setFailed(error.message);
             } else {
               core.info("DONE writing .npmrc");
+              core.info(contents);
             }
           }
         );
