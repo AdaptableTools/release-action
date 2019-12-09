@@ -27,6 +27,10 @@ async function run() {
         cmd = "npm run release:major";
       }
 
+      const nameToGreet = core.getInput("a-var");
+      console.log(`Hello ${nameToGreet}!`);
+      core.info(`Hello ${nameToGreet}!`);
+
       if (message.includes("release version")) {
         if (!cmd) {
           const err = `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`;
