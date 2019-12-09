@@ -35,12 +35,12 @@ async function run() {
       if (commit.message.toLowerCase().includes("release version")) {
         if (!cmd) {
           const err = `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`;
-          console.log(err);
+          core.debug(err);
           core.setFailed(err);
           return;
         } else {
           core.exportVariable("PUBLISH_PACKAGE_CMD", cmd);
-          console.log("SET ENV VAR PUBLISH_PACKAGE_CMD = " + cmd);
+          core.debug("SET ENV VAR PUBLISH_PACKAGE_CMD = " + cmd);
         }
         const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
         // core.setSecret(npmToken);
@@ -54,7 +54,7 @@ async function run() {
             if (error) {
               core.setFailed(error.message);
             } else {
-              console.log("DONE writing .npmrc");
+              core.debug("DONE writing .npmrc");
             }
           }
         );
