@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "release-action",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "Release action",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
