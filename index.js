@@ -8,6 +8,8 @@ async function run() {
     // const github = new GitHub(process.env.GITHUB_TOKEN);
 
     core.debug(`context: (${JSON.stringify(context)})`);
+    console.log(`context: (${JSON.stringify(context)})`);
+
     // const { ref } = context;
     // const commit = await github.git.getCommit(ref);
 
