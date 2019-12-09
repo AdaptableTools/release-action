@@ -7,7 +7,10 @@
     "lint": "eslint index.js",
     "package": "ncc build index.js -o dist",
     "test": "eslint index.js && jest",
-    "release": "np"
+    "canaryrelease": "np prerelease --tag=canary",
+    "release:patch": "np patch",
+    "release:minor": "np minor",
+    "release:major": "np major"
   },
   "np": {
     "tests": false,
