@@ -54,27 +54,24 @@ module.exports = require("os");
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
-const wait = __webpack_require__(949);
 
+const { GitHub, context } = __webpack_require__(690);
 
 // most @actions toolkit packages have async methods
 async function run() {
-  try { 
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+  try {
+    const github = new GitHub(process.env.GITHUB_TOKEN);
 
-    core.debug((new Date()).toTimeString())
-    wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+    const { ref } = context;
+    const commit = await github.git.getCommit(ref);
 
-    core.setOutput('time', new Date().toTimeString());
-  } 
-  catch (error) {
+    core.debug(`commit: JSON.stringify(${commit})`);
+  } catch (error) {
     core.setFailed(error.message);
   }
 }
 
-run()
+run();
 
 
 /***/ }),
@@ -343,20 +340,10 @@ module.exports = require("path");
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module) {
+/***/ 690:
+/***/ (function() {
 
-let wait = function(milliseconds) {
-  return new Promise((resolve, reject) => {
-    if (typeof(milliseconds) !== 'number') { 
-      throw new Error('milleseconds not a number'); 
-    }
-
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-}
-
-module.exports = wait;
+eval("require")("@actions/github");
 
 
 /***/ })
