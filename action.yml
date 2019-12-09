@@ -1,9 +1,27 @@
 name: "Release action"
 description: "Releases a new version"
-# inputs:
+inputs:
+  PRIVATE_REGISTRY_TOKEN:
+    description: "token for the private npm registry"
+    required: true
 outputs:
   time: # output will be available to future steps
     description: "The message to output"
 runs:
   using: "node12"
   main: "dist/index.js"
+
+
+  name: 'Wait'
+description: 'Wait a designated number of milliseconds'
+inputs:
+  milliseconds:  # id of input
+    description: 'number of milliseconds to wait'
+    required: true
+    default: '1000'
+outputs:
+  time: # output will be available to future steps 
+    description: 'The message to output'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
