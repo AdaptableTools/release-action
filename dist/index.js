@@ -554,6 +554,8 @@ async function run() {
           core.info("SET ENV VAR PUBLISH_PACKAGE_CMD = " + cmd);
         }
         const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
+
+        core.info("token", PRIVATE_REGISTRY_TOKEN);
         // core.setSecret(npmToken);
         // core.setSecret(npmToken);
         const contents = `@adaptabletools:registry=https://registry.adaptabletools.com
