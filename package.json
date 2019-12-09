@@ -15,7 +15,7 @@
   "np": {
     "tests": false,
     "cleanup": false,
-    "publish": false,
+    "xpublish": false,
     "releaseDraft": false
   },
   "repository": {
