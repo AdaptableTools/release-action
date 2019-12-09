@@ -25,6 +25,7 @@
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
+    "@actions/github": "^1.1.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
