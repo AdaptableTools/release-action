@@ -15,7 +15,42 @@ async function run() {
     const commit = payload.commits.filter(commit => commit.id === sha);
 
     if (commit && commit.message) {
+      let what;
+      if (commit.message.toLowerCase().includes("release version canary")) {
+        core.exportSecret(
+          "PUBLISH_PACKAGE_CMD",
+          (what = "npm run canaryrelease")
+        );
+      } else if (
+        commit.message.toLowerCase().includes("release version patch")
+      ) {
+        core.exportSecret(
+          "PUBLISH_PACKAGE_CMD",
+          (what = "npm run release:patch")
+        );
+      } else if (
+        commit.message.toLowerCase().includes("release version minor")
+      ) {
+        core.exportSecret(
+          "PUBLISH_PACKAGE_CMD",
+          (what = "npm run release:minor")
+        );
+      } else if (
+        commit.message.toLowerCase().includes("release version major")
+      ) {
+        core.exportSecret(
+          "PUBLISH_PACKAGE_CMD",
+          (what = "npm run release:major")
+        );
+      }
+
       if (commit.message.toLowerCase().includes("release version")) {
+        if (!what) {
+          const err = `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`;
+          console.log(err);
+          core.setFailed(err);
+          return;
+        }
         const PRIVATE_REGISTRY_TOKEN = core.getInput("PRIVATE_REGISTRY_TOKEN");
         // core.setSecret(npmToken);
         // core.setSecret(npmToken);
@@ -29,7 +64,6 @@ async function run() {
               core.setFailed(error.message);
             } else {
               console.log("DONE writing .npmrc");
-              core.exportSecret("PUBLISH_PACKAGE", "true");
             }
           }
         );
