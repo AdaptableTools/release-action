@@ -15,24 +15,19 @@ async function run() {
     const commit = payload.commits.filter(commit => commit.id === sha)[0];
 
     if (commit && commit.message) {
+      const message = commit.message.toLowerCase();
       let cmd;
-      if (commit.message.toLowerCase().includes("release version canary")) {
+      if (message.includes("canary")) {
         cmd = "npm run canaryrelease";
-      } else if (
-        commit.message.toLowerCase().includes("release version patch")
-      ) {
+      } else if (message.includes("patch")) {
         cmd = "npm run release:patch";
-      } else if (
-        commit.message.toLowerCase().includes("release version minor")
-      ) {
+      } else if (message.includes("minor")) {
         cmd = "npm run release:minor";
-      } else if (
-        commit.message.toLowerCase().includes("release version major")
-      ) {
+      } else if (message.includes("major")) {
         cmd = "npm run release:major";
       }
 
-      if (commit.message.toLowerCase().includes("release version")) {
+      if (message.includes("release version")) {
         if (!cmd) {
           const err = `ambigous release commit message: should have the format "release version <canary|patch|minor|major>"`;
           core.info(err);
