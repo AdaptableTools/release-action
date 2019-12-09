@@ -528,7 +528,7 @@ async function run() {
     core.debug(`context: (${JSON.stringify(context)})`);
     const { sha, payload } = context;
 
-    const commit = payload.commits.filter(commit => commit.id === sha);
+    const commit = payload.commits.filter(commit => commit.id === sha)[0];
 
     if (commit && commit.message) {
       let cmd;
