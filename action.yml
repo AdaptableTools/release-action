@@ -1,9 +1,4 @@
 name: "Release action"
 description: "Releases a new version."
-inputs:
-  a-var:
-    description: "a simple value"
-  PRIVATE_REGISTRY_TOKEN:
-    description: "token for the private npm registry"
 runs:
   main: "dist/index.js"

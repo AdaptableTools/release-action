@@ -9,11 +9,11 @@ async function run() {
   try {
     // const github = new GitHub(process.env.GITHUB_TOKEN);
 
-    core.debug(`context: (${JSON.stringify(context)})`);
     const { sha, payload } = context;
 
     const commit = payload.commits.filter(commit => commit.id === sha)[0];
 
+    core.info("starting up...");
     if (commit && commit.message) {
       const message = commit.message.toLowerCase();
       let cmd;
