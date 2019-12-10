@@ -1,5 +1,5 @@
 name: "Release action"
-description: "Releases a new version"
+description: "Releases a new version."
 inputs:
   a-var:
     description: "a simple value"
